@@ -3,22 +3,25 @@
 
 <html>
 <head>
-  <title>Audio Image classifier</title>
+  <title>Audio Image Classifier</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>Classify here</h1>
-  
-  <input type="file" accept=".wav, .mp3" id="audioFile">
-  <label for="audioFile"> Upload Audio File</label>
-  <button id="process">Submit</button>
+<h1>Upload files here to classify </h1>
+
+  <form action="/upload" method="POST" enctype="multipart/form-data">
+    <input type="file" accept=".wav, .mp3" name="audioFile" id="audioFile">
+    <label for="audioFile"> Upload Audio File Here </label><br>
+
+    <input type="file" accept="image/*" name="imageFile" id="imageFile">
+    <label for="imageFile"> Upload Image File Here </label><br>
+
+    <button type="submit">Submit</button>
+  </form>
+
   <div id="audioResult">Audio Result</div>
-  
-  <input type="file" accept="image*/" id="imageFile">
-  <label for="imageFile"> Upload Image File</label>
-  
-  <button id="process">Submit</button>
-  
   <div id="imageResult">Image Result</div>
+
+  <script src="script.js"></script>
 </body>
 </html>
