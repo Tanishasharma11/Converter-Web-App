@@ -1,6 +1,6 @@
 # Classifier-Web-App
 
-run 
+in bash run 
 
 ```
 npm install express
