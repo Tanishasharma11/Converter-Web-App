@@ -1,28 +1,25 @@
-const audioFileInput=document.getElementById('audioFile');
-const imageFileInput=document.getElementById('imageFile');
-const processButton=document.getElementById('process');
-const audioResult=document.getElementById('audioResult');
-const imageResult=document.getElementById('imageResult');
+const form = document.querySelector('form');
+const audioResult = document.getElementById('audioResult');
+const imageResult = document.getElementById('imageResult');
 
-processButton.addEventListener('click',()=>{
-const reader= new FileReader();
-reader.onload=(e)=>{
-const audioData=e.target.result;
-//Actual processing logic
-const audioResultText='Audio file classified as : ';
-audioResult.textContent=audioResultText;
-};
-reader.readAsDataURL(audioFile);
-}
+form.addEventListener('submit', (event) => {
+  event.preventDefault();
 
-if(imageFile){
-const reader=new FileReader();
-reader.onload=(e)=>{
-const imageData=e.target.result;
-//image processing logic
-const imageResultText='Image classified as : ';
-imageResult.textContent=imageResultText;
-};
-reader.readAsDataURL(imageFile);
-}
+  const formData = new FormData(form);
+
+  fetch('/upload', {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log(data); // Handle the response data
+    audioResult.textContent = data.audioResult || 'Audio processing failed';
+    imageResult.textContent = data.imageResult || 'Image processing failed';
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    audioResult.textContent = 'Error uploading audio file';
+    imageResult.textContent = 'Error uploading image file';
+  });
 });
