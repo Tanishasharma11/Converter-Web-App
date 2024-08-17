@@ -3,18 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css">
-    <title>File Converter</title>
+    <title>File Classifier</title>
 </head>
 <body>
 <!--Author: Tanisha Sharma-->    
 <div class="container">
-    <h1 class="display-4 text-center">Converter</h1><br>
+    <h1 class="display-4 text-center">Classifier</h1><br>
     <form action="/action_page.php">
-        <label for="myfile">Select a file: </label>
-        <input type="file" id="myfile" name="myfile"><br><br>
+        
+        <input type="file" accept=".wav, .mp3" id="audioFile"><br><br>
+        <label for="audioFile"> Upload Audio File</label>
+        <input type="file" accept="image*/" id="imageFile">
+        <label for="imageFile"> Upload Image File</label>
         <input type="submit">
+        <button id="process">Process File</button>
+        <div id="audioResult"></div>
+        <div id="imageResult"></div>     
+        
     </form>
 </div>
 
