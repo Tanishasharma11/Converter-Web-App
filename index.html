@@ -1,27 +1,67 @@
 <!DOCTYPE html>
 <!--Author: Tanisha Sharma-->   
 
+<!DOCTYPE html>
 <html>
 <head>
-  <title>Audio Image Classifier</title>
+  <title>Static Classifier</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<h1>Upload files here to classify </h1>
+  <h1>Upload files here to classify</h1>
 
-  <form action="/upload" method="POST" enctype="multipart/form-data">
+  <form id="uploadForm" action="/upload" method="POST" enctype="multipart/form-data">
     <input type="file" accept=".wav, .mp3" name="audioFile" id="audioFile">
-    <label for="audioFile"> Upload Audio File Here </label><br>
+    <label for="audioFile"> Upload Audio File Here To Classify </label><br>
 
-    <input type="file" accept="image/*" name="imageFile" id="imageFile">
-    <label for="imageFile"> Upload Image File Here </label><br>
-
+    <input type="file" accept=".png, .jpg" name="imageFile" id="imageFile">
+    <label for="imageFile"> Upload Image File Here To Classify</label><br>
+    <br>
     <button type="submit">Submit</button>
   </form>
 
-  <div id="audioResult">Audio Result</div>
-  <div id="imageResult">Image Result</div>
+  <div id="audioResult">Audio Result Here</div>
+  <div id="imageResult">Image Result Here</div>
+  <div id="finalConclusion">Final Conclusion Here</div>
+  
+  <div id="audioPlayback"></div>
+
+  <script>
+  document.getElementById('uploadForm').addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  const form = event.target;
+  const formData = new FormData(form);
+
+  fetch('/upload', {
+    method: 'POST',
+    body: formData,
+  })
+    .then((response) => {
+      if (!response.ok) {
+        return response.json().then((data) => {
+          throw new Error(data.error || 'Unexpected error occurred');
+        });
+      }
+      return response.json();
+    })
+    .then((data) => {
+      document.getElementById('audioResult').textContent = data.audioResult || 'Audio Result: N/A';
+      document.getElementById('imageResult').textContent = data.imageResult || 'Image Result: N/A';
+      document.getElementById('finalConclusion').textContent =
+        data.finalConclusion || 'Final Conclusion: N/A';
+    })
+    .catch((error) => {
+      document.getElementById('audioResult').textContent = 'Error processing audio file.';
+      document.getElementById('imageResult').textContent = 'Error processing image file.';
+      document.getElementById('finalConclusion').textContent = error.message || 'Error giving feedback';
+      console.error('Error:', error);
+    });
+});
+
+  </script>
 
   <script src="script.js"></script>
 </body>
 </html>
+
