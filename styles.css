@@ -29,7 +29,7 @@ background-color: #007bff;
 color: white;
 cursor: pointer;
 }
-#audioResult,#imageResult{
+#audioResult,#imageResult,#finalConclusion{
 margin-top:20px;
 padding: 10px;
 border: 1px solid #ccc;
