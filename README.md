@@ -1,4 +1,4 @@
-# Classifier-Web-App
+# Classification-Web-App
 
 in bash run 
 
